@@ -65,7 +65,10 @@ class ApiService {
 
     SharedPreferences pref = await SharedPreferences.getInstance();
     final userData = json.decode(pref.getString('userData').toString());
-    final headers = {"Content-type": "application/json"};
+    final headers = {
+      "Content-type": "application/json",
+      "Authorization": "Bearer ${userData['token']}"
+    };
     final jsonRe = {'reporter_id': userData['id'], 'status': status ?? 1};
     var response =
         await http.post(url, headers: headers, body: jsonEncode(jsonRe));

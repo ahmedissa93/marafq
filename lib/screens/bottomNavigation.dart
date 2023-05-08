@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:marafq/screens/chat.dart';
+import 'package:marafq/screens/rating.dart';
 import 'package:marafq/screens/reports.dart';
 import 'package:marafq/screens/dashboard.dart';
 import 'package:marafq/screens/home.dart';
@@ -102,7 +104,7 @@ class _BottomNavigationState extends State<BottomNavigation> {
                       minWidth: 40,
                       onPressed: () {
                         setState(() {
-                          currentScreen = Dashboard();
+                          currentScreen = Rating();
                           currentTab = 2;
                         });
                       },
@@ -116,7 +118,31 @@ class _BottomNavigationState extends State<BottomNavigation> {
                                 : Colors.grey,
                           ),
                           const Text(
-                            "تقييم الخدمة",
+                            "تقييم ",
+                            style: AppStyles.navigationStyle,
+                          ),
+                        ],
+                      ),
+                    ),
+                    MaterialButton(
+                      minWidth: 40,
+                      onPressed: () {
+                        setState(() {
+                          currentScreen = Chat();
+                          currentTab = 3;
+                        });
+                      },
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.start,
+                        children: [
+                          Icon(
+                            Icons.chat,
+                            color: currentTab == 3
+                                ? AppStyles.appColor
+                                : Colors.grey,
+                          ),
+                          const Text(
+                            " الشات",
                             style: AppStyles.navigationStyle,
                           ),
                         ],
@@ -127,7 +153,7 @@ class _BottomNavigationState extends State<BottomNavigation> {
                       onPressed: () {
                         setState(() {
                           currentScreen = Setting();
-                          currentTab = 3;
+                          currentTab = 4;
                         });
                       },
                       child: Column(
@@ -135,7 +161,7 @@ class _BottomNavigationState extends State<BottomNavigation> {
                         children: [
                           Icon(
                             Icons.settings,
-                            color: currentTab == 3
+                            color: currentTab == 4
                                 ? AppStyles.appColor
                                 : Colors.grey,
                           ),

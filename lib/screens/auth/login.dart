@@ -49,6 +49,7 @@ class _MyStatefulWidgetState extends State<MyStatefulWidget> {
   }
 
   void _login(username, password) async {
+    print(username);
     _isLoggedIn = (await ApiService().login(username, password));
     if (_isLoggedIn) {
       // ignore: use_build_context_synchronously
