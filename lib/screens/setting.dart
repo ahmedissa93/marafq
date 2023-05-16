@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:marafq/screens/auth/login.dart';
+import 'package:marafq/screens/view/auth/login.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class Setting extends StatelessWidget {

@@ -1,13 +1,15 @@
 import 'dart:convert';
 import 'dart:developer';
-import 'dart:ffi';
-import 'package:dropdown_button2/dropdown_button2.dart';
+// import 'package:dropdown_button2/dropdown_button2.dart';
 import 'package:intl/intl.dart';
 
 import 'package:flutter/material.dart';
 import 'package:marafq/api_services/api_service.dart';
+import 'package:marafq/screens/reports/imagePickerWidget.dart';
 import 'package:marafq/style/appStyle.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'dart:io';
+import 'dart:async';
 
 class AddReport extends StatelessWidget {
   const AddReport({super.key});
@@ -120,117 +122,123 @@ class _MyStatefulWidgetState extends State<MyStatefulWidget> {
       'watermelon',
       'Pineapple'
     ];
-    return Padding(
+    return Scaffold(
+      resizeToAvoidBottomInset: false,
+      body: Padding(
         padding: const EdgeInsets.all(10),
         child: Form(
-            key: _formKey,
-            child: ListView(
-              children: <Widget>[
-                Container(
-                  alignment: Alignment.center,
-                  padding: const EdgeInsets.all(10),
-                ),
-                Container(
-                    height: 40,
-                    padding: const EdgeInsets.all(10),
-                    decoration: BoxDecoration(
-                      // borderRadius: BorderRadius.circular(30.0),
-                      border: Border.all(
-                          color: Colors.grey,
-                          style: BorderStyle.solid,
-                          width: 0.20),
-                    ),
-                    child: DropdownButtonHideUnderline(
-                      child: DropdownButton2(
-                        hint: Text(
-                          'Select Item',
-                          style: TextStyle(
-                            fontSize: 14,
-                            color: Theme.of(context).hintColor,
-                          ),
-                        ),
-                        items: items
-                            .map((item) => DropdownMenuItem<String>(
-                                  value: item,
-                                  child: Text(
-                                    item,
-                                    style: const TextStyle(
-                                      fontSize: 14,
-                                    ),
-                                  ),
-                                ))
-                            .toList(),
-                        value: selectedValue,
-                        onChanged: (String? newValue) {
-                          setState(() {
-                            log(newValue!);
-                            selectedValue = newValue;
-                          });
-                        },
-                        buttonStyleData: const ButtonStyleData(
-                          height: 40,
-                          width: 120,
-                        ),
-                        menuItemStyleData: const MenuItemStyleData(
-                          height: 40,
-                        ),
-                        // buttonHeight: 40,
-                        // buttonWidth: 140,
-                        // itemHeight: 40,
-                      ),
-                    )),
-                Container(
-                  padding: const EdgeInsets.all(10),
-                  child: TextFormField(
-                    style: AppStyles.textStyleInput,
-                    controller: nameController,
-                    validator: (text) {
-                      if (text == null || text.isEmpty) {
-                        return 'is empty';
-                      }
-                      return null;
-                    },
-                    decoration: const InputDecoration(
-                      border: OutlineInputBorder(),
-                      labelText: 'وصف البلاغ',
-                    ),
+          key: _formKey,
+          child: ListView(
+            children: <Widget>[
+              Container(
+                alignment: Alignment.center,
+                padding: const EdgeInsets.all(10),
+              ),
+              const ImagePickerWidget(),
+              // Container(
+              //   height: 40,
+              //   padding: const EdgeInsets.all(10),
+              //   decoration: BoxDecoration(
+              //     // borderRadius: BorderRadius.circular(30.0),
+              //     border: Border.all(
+              //         color: Colors.grey, style: BorderStyle.solid, width: 0.20),
+              //   ),
+              //   child: DropdownButtonHideUnderline(
+              //     child: DropdownButton2(
+              //       hint: Text(
+              //         'Select Item',
+              //         style: TextStyle(
+              //           fontSize: 14,
+              //           color: Theme.of(context).hintColor,
+              //         ),
+              //       ),
+              //       items: items
+              //           .map((item) => DropdownMenuItem<String>(
+              //                 value: item,
+              //                 child: Text(
+              //                   item,
+              //                   style: const TextStyle(
+              //                     fontSize: 14,
+              //                   ),
+              //                 ),
+              //               ))
+              //           .toList(),
+              //       value: selectedValue,
+              //       onChanged: (String? newValue) {
+              //         setState(() {
+              //           log(newValue!);
+              //           selectedValue = newValue;
+              //         });
+              //       },
+              //       buttonStyleData: const ButtonStyleData(
+              //         height: 40,
+              //         width: 120,
+              //       ),
+              //       menuItemStyleData: const MenuItemStyleData(
+              //         height: 40,
+              //       ),
+              //       // buttonHeight: 40,
+              //       // buttonWidth: 140,
+              //       // itemHeight: 40,
+              //     ),
+              //   ),
+              // ),
+              Container(
+                padding: const EdgeInsets.all(10),
+                child: TextFormField(
+                  style: AppStyles.textStyleInput,
+                  controller: nameController,
+                  validator: (text) {
+                    if (text == null || text.isEmpty) {
+                      return 'is empty';
+                    }
+                    return null;
+                  },
+                  decoration: const InputDecoration(
+                    border: OutlineInputBorder(),
+                    labelText: 'وصف البلاغ',
                   ),
                 ),
-                Container(
-                  padding: const EdgeInsets.all(10),
-                  child: TextFormField(
-                    maxLines: null,
-                    minLines: 3,
-                    keyboardType: TextInputType.multiline,
-                    style: AppStyles.textStyleInput,
-                    controller: nameController,
-                    validator: (text) {
-                      if (text == null || text.isEmpty) {
-                        return ' is empty';
-                      }
-                      return null;
-                    },
-                    decoration: const InputDecoration(
-                      border: OutlineInputBorder(),
-                      labelText: 'مكان البلاغ',
-                    ),
+              ),
+              Container(
+                padding: const EdgeInsets.all(10),
+                child: TextFormField(
+                  maxLines: null,
+                  minLines: 3,
+                  keyboardType: TextInputType.multiline,
+                  style: AppStyles.textStyleInput,
+                  controller: nameController,
+                  validator: (text) {
+                    if (text == null || text.isEmpty) {
+                      return ' is empty';
+                    }
+                    return null;
+                  },
+                  decoration: const InputDecoration(
+                    border: OutlineInputBorder(),
+                    labelText: 'مكان البلاغ',
                   ),
                 ),
-                Container(
-                    height: 50,
-                    padding: const EdgeInsets.fromLTRB(10, 10, 10, 0),
-                    child: ElevatedButton(
-                      child: const Text(
-                        'تقديم',
-                        style: AppStyles.textStyle,
-                      ),
-                      onPressed: () async {
-                        if (_formKey.currentState!.validate()) {
-                          _addReport();
-                        }
-                      },
-                    )),
-              ],
-            )));
+              ),
+              Container(
+                height: 50,
+                padding: const EdgeInsets.fromLTRB(10, 10, 10, 0),
+                child: ElevatedButton(
+                  child: const Text(
+                    'تقديم',
+                    style: AppStyles.textStyle,
+                  ),
+                  onPressed: () async {
+                    if (_formKey.currentState!.validate()) {
+                      _addReport();
+                    }
+                  },
+                ),
+              ),
+            ],
+          ),
+        ),
+      ),
+    );
   }
 }

@@ -11,7 +11,7 @@ class Chat extends StatelessWidget {
       ),
       body: const Center(
         // padding: const EdgeInsets.all(20),
-        child: Text("Chat"),
+        child: Text("comming soon"),
       ),
     );
   }

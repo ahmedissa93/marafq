@@ -9,7 +9,8 @@ class Home extends StatelessWidget {
     return Scaffold(
         appBar: AppBar(
           title: const Text(
-            'Home',
+            'الرئيسية',
+            style: AppStyles.textStyle,
           ),
         ),
         body: _HomeStatelssWidget());

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:marafq/api_services/api_service.dart';
-import 'package:marafq/screens/auth/login.dart';
+import 'package:marafq/screens/view/auth/login.dart';
 import 'package:marafq/style/appStyle.dart';
 
 // ignore: must_be_immutable
@@ -34,6 +34,7 @@ class _MyStatefulWidgetState extends State<MyStatefulWidget> {
   Future<void> _register(username, password, email, name) async {
     var isRegister =
         (await ApiService().register(username, password, email, name));
+    print("isRegister ${isRegister}");
     if (isRegister) {
       // ignore: use_build_context_synchronously
       Navigator.push(

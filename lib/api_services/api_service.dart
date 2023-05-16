@@ -51,6 +51,7 @@ class ApiService {
       if (response.statusCode == 200) {
         return true;
       }
+      print("response  ${response.statusCode}");
     } catch (e) {
       log(e.toString());
     }
